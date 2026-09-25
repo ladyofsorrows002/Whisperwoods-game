@@ -1381,15 +1381,6 @@ function reportNetDebug(label, err) {
 window.addEventListener('error', (e) => reportNetDebug('window error', e.error || e.message));
 window.addEventListener('unhandledrejection', (e) => reportNetDebug('unhandled promise rejection', e.reason));
 
-// TEMP DEBUG: a Content-Security-Policy violation fires this event with
-// the exact rule and URL involved — this is the one way to see that on
-// an iPhone with no Mac/Web Inspector to check the console directly.
-window.addEventListener('securitypolicyviolation', (e) => {
-  reportNetDebug('CSP violation', new Error(
-    'directive=' + e.violatedDirective + ' blockedURI=' + e.blockedURI + ' policy=' + e.originalPolicy
-  ));
-});
-
 const net = {
   isHost: false,
   myId: null,
@@ -1850,7 +1841,7 @@ function preloadExternalModels() {
         notifyModelLoaded();
       }
     }, undefined, err => {
-      console.warn(path + ' failed to load', err);
+      reportNetDebug(path + ' failed to load', err);
       humanModelLoadStatus = { ok: false, message: gender + ' fetch/parse failed: ' + (err && (err.message || err.target && err.target.status) || 'unknown') };
       notifyModelLoaded();
     });
@@ -1899,17 +1890,17 @@ function preloadExternalModels() {
     ghostModelTemplate = wrap;
     ghostModelClip = groundClip;
     notifyModelLoaded();
-  }, undefined, err => console.warn('Meshy_AI_Low_poly_3D_character_0921081304_texture_RIGGED.glb failed to load', err));
+  }, undefined, err => reportNetDebug('Meshy_AI_Low_poly_3D_character_0921081304_texture_RIGGED.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/birch.glb', gltf => {
     birchModelTemplate = gltf.scene;
     birchModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('birch.glb failed to load', err));
+  }, undefined, err => reportNetDebug('birch.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/mossy-rock.glb', gltf => {
     rockModelTemplate = gltf.scene;
     rockModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = true; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('mossy-rock.glb failed to load', err));
+  }, undefined, err => reportNetDebug('mossy-rock.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/low_poly_flare_gun.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
@@ -1932,7 +1923,7 @@ function preloadExternalModels() {
     wrap.add(inner);
     flareGunModelTemplate = wrap;
     notifyModelLoaded();
-  }, undefined, err => console.warn('low_poly_flare_gun.glb failed to load', err));
+  }, undefined, err => reportNetDebug('low_poly_flare_gun.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/low_poly_lighter.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
@@ -1952,42 +1943,42 @@ function preloadExternalModels() {
     wrap.add(inner);
     lighterModelTemplate = wrap;
     notifyModelLoaded();
-  }, undefined, err => console.warn('low_poly_lighter.glb failed to load', err));
+  }, undefined, err => reportNetDebug('low_poly_lighter.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/arch.glb', gltf => {
     archModelTemplate = gltf.scene;
     archModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('arch.glb failed to load', err));
+  }, undefined, err => reportNetDebug('arch.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Tree02.glb', gltf => {
     tree02ModelTemplate = gltf.scene;
     tree02ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('Tree02.glb failed to load', err));
+  }, undefined, err => reportNetDebug('Tree02.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Tree04.glb', gltf => {
     tree04ModelTemplate = gltf.scene;
     tree04ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('Tree04.glb failed to load', err));
+  }, undefined, err => reportNetDebug('Tree04.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Bush04.glb', gltf => {
     bush04ModelTemplate = gltf.scene;
     bush04ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = true; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('Bush04.glb failed to load', err));
+  }, undefined, err => reportNetDebug('Bush04.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/BlockChain_Roots_Art.glb', gltf => {
     rootsArtModelTemplate = gltf.scene;
     rootsArtModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('BlockChain_Roots_Art.glb failed to load', err));
+  }, undefined, err => reportNetDebug('BlockChain_Roots_Art.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/ElectricPost01_Art.glb', gltf => {
     electricPostModelTemplate = gltf.scene;
     electricPostModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('ElectricPost01_Art.glb failed to load', err));
+  }, undefined, err => reportNetDebug('ElectricPost01_Art.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Fair_Flags_Line.glb', gltf => {
     fairFlagsModelTemplate = gltf.scene;
     fairFlagsModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
     notifyModelLoaded();
-  }, undefined, err => console.warn('Fair_Flags_Line.glb failed to load', err));
+  }, undefined, err => reportNetDebug('Fair_Flags_Line.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/wallwalker.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
@@ -2023,7 +2014,7 @@ function preloadExternalModels() {
     wallwalkerGrabClip = (gltf.animations || []).find(a => a.name === 'GrabMerge') || null;
     stripRootTranslation(wallwalkerGrabClip);
     notifyModelLoaded();
-  }, undefined, err => console.warn('wallwalker.glb failed to load', err));
+  }, undefined, err => reportNetDebug('wallwalker.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/scp-096-unity-with-animationwalking.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
@@ -2058,7 +2049,7 @@ function preloadExternalModels() {
     scp096GrabClip = (gltf.animations || []).find(a => a.name === 'GrabMerge') || null;
     stripRootTranslation(scp096GrabClip);
     notifyModelLoaded();
-  }, undefined, err => console.warn('scp-096-unity-with-animationwalking.glb failed to load', err));
+  }, undefined, err => reportNetDebug('scp-096-unity-with-animationwalking.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/wendigo_unchanged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
@@ -2102,7 +2093,7 @@ function preloadExternalModels() {
     wendigoGrabClip = (gltf.animations || []).find(a => a.name === 'GrabMerge') || null;
     stripRootTranslation(wendigoGrabClip);
     notifyModelLoaded();
-  }, undefined, err => console.warn('wendigo_unchanged.glb failed to load', err));
+  }, undefined, err => reportNetDebug('wendigo_unchanged.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/psx_horror_creature_optimized.glb', gltf => {
     const inner = gltf.scene;
     // Skinned meshes are frustum-culled using their UNPOSED bounding sphere,
@@ -2168,7 +2159,7 @@ function preloadExternalModels() {
     psxHorrorGrabClip = (gltf.animations || []).find(a => a.name === 'GrabMerge') || null;
     stripRootTranslation(psxHorrorGrabClip);
     notifyModelLoaded();
-  }, undefined, err => console.warn('psx_horror_creature_optimized.glb failed to load', err));
+  }, undefined, err => reportNetDebug('psx_horror_creature_optimized.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/rigged-model.glb', gltf => {
     const inner = gltf.scene;
     // Skinned meshes are frustum-culled using their UNPOSED bounding sphere,
@@ -2227,7 +2218,7 @@ function preloadExternalModels() {
     console.log('[snatcher] animations:', snAnims.map(a => a.name), '| catch clip:', snatcherGrabClip && snatcherGrabClip.name);
     stripRootTranslation(snatcherGrabClip);
     notifyModelLoaded();
-  }, undefined, err => console.warn('rigged-model.glb failed to load', err));
+  }, undefined, err => reportNetDebug('rigged-model.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/krasue_optimized.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
@@ -2275,7 +2266,7 @@ function preloadExternalModels() {
     krasueGrabClip = (gltf.animations || []).find(a => a.name === 'GrabMerge') || null;
     stripRootTranslation(krasueGrabClip);
     notifyModelLoaded();
-  }, undefined, err => console.warn('krasue_optimized.glb failed to load', err));
+  }, undefined, err => reportNetDebug('krasue_optimized.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/total_horror_v2_optimized.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
@@ -2316,7 +2307,7 @@ function preloadExternalModels() {
     totalHorrorGrabClip = (gltf.animations || []).find(a => a.name === 'GrabMerge') || null;
     stripRootTranslation(totalHorrorGrabClip);
     notifyModelLoaded();
-  }, undefined, err => console.warn('total_horror_v2_optimized.glb failed to load', err));
+  }, undefined, err => reportNetDebug('total_horror_v2_optimized.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Meshy_AI_A_low_poly_game_read_biped.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
@@ -2353,7 +2344,7 @@ function preloadExternalModels() {
     Meshy_AI_A_low_poly_game_read_bipedTemplate = wrap;
     Meshy_AI_A_low_poly_game_read_bipedClip = groundClip;
     notifyModelLoaded();
-  }, undefined, err => console.warn('Meshy_AI_A_low_poly_game_read_biped.glb failed to load', err));
+  }, undefined, err => reportNetDebug('Meshy_AI_A_low_poly_game_read_biped.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
@@ -2393,7 +2384,7 @@ function preloadExternalModels() {
     Meshy_AI_The_Bloodstained_Wrai_0921070753_riggedTemplate = wrap;
     Meshy_AI_The_Bloodstained_Wrai_0921070753_riggedClip = groundClip;
     notifyModelLoaded();
-  }, undefined, err => console.warn('Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb failed to load', err));
+  }, undefined, err => reportNetDebug('Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb failed to load', err));
   gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Meshy_AI_Low_poly_3D_monster_a_0921073733_rigged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
@@ -2432,7 +2423,7 @@ function preloadExternalModels() {
     Meshy_AI_Low_poly_3D_monster_a_0921073733_riggedTemplate = wrap;
     Meshy_AI_Low_poly_3D_monster_a_0921073733_riggedClip = groundClip;
     notifyModelLoaded();
-  }, undefined, err => console.warn('Meshy_AI_Low_poly_3D_monster_a_0921073733_rigged.glb failed to load', err));
+  }, undefined, err => reportNetDebug('Meshy_AI_Low_poly_3D_monster_a_0921073733_rigged.glb failed to load', err));
 }
 preloadExternalModels();
 let cryptidPos = new THREE.Vector3(60, 0, 60);
