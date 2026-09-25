@@ -1846,9 +1846,9 @@ function preloadExternalModels() {
       notifyModelLoaded();
     });
   }
-  loadHumanModel('male', './models/low_poly_male.glb', (t, c) => { maleModelTemplate = t; maleModelClip = c; });
-  loadHumanModel('female', './models/low_poly_female.glb', (t, c) => { femaleModelTemplate = t; femaleModelClip = c; });
-  gltfLoader.load('./models/Meshy_AI_Low_poly_3D_character_0921081304_texture_RIGGED.glb', gltf => {
+  loadHumanModel('male', './low_poly_male.glb', (t, c) => { maleModelTemplate = t; maleModelClip = c; });
+  loadHumanModel('female', './low_poly_female.glb', (t, c) => { femaleModelTemplate = t; femaleModelClip = c; });
+  gltfLoader.load('./Meshy_AI_Low_poly_3D_character_0921081304_texture_RIGGED.glb', gltf => {
     // The uploaded model shipped as a single static mesh with no skeleton --
     // a custom auto-rig was generated for it offline (18-bone humanoid-ish
     // skeleton hand-placed from the mesh's silhouette, since it's a robed
@@ -1891,17 +1891,17 @@ function preloadExternalModels() {
     ghostModelClip = groundClip;
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('Meshy_AI_Low_poly_3D_character_0921081304_texture_RIGGED.glb failed to load', err));
-  gltfLoader.load('./models/birch.glb', gltf => {
+  gltfLoader.load('./birch.glb', gltf => {
     birchModelTemplate = gltf.scene;
     birchModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('birch.glb failed to load', err));
-  gltfLoader.load('./models/mossy-rock.glb', gltf => {
+  gltfLoader.load('./mossy-rock.glb', gltf => {
     rockModelTemplate = gltf.scene;
     rockModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('mossy-rock.glb failed to load', err));
-  gltfLoader.load('./models/low_poly_flare_gun.glb', gltf => {
+  gltfLoader.load('./low_poly_flare_gun.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     // Normalize to a small handheld-prop size regardless of the source
@@ -1924,7 +1924,7 @@ function preloadExternalModels() {
     flareGunModelTemplate = wrap;
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('low_poly_flare_gun.glb failed to load', err));
-  gltfLoader.load('./models/low_poly_lighter.glb', gltf => {
+  gltfLoader.load('./low_poly_lighter.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     const box = computeMeshBounds(inner);
@@ -1944,42 +1944,42 @@ function preloadExternalModels() {
     lighterModelTemplate = wrap;
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('low_poly_lighter.glb failed to load', err));
-  gltfLoader.load('./models/arch.glb', gltf => {
+  gltfLoader.load('./arch.glb', gltf => {
     archModelTemplate = gltf.scene;
     archModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('arch.glb failed to load', err));
-  gltfLoader.load('./models/Tree02.glb', gltf => {
+  gltfLoader.load('./Tree02.glb', gltf => {
     tree02ModelTemplate = gltf.scene;
     tree02ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('Tree02.glb failed to load', err));
-  gltfLoader.load('./models/Tree04.glb', gltf => {
+  gltfLoader.load('./Tree04.glb', gltf => {
     tree04ModelTemplate = gltf.scene;
     tree04ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('Tree04.glb failed to load', err));
-  gltfLoader.load('./models/Bush04.glb', gltf => {
+  gltfLoader.load('./Bush04.glb', gltf => {
     bush04ModelTemplate = gltf.scene;
     bush04ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('Bush04.glb failed to load', err));
-  gltfLoader.load('./models/BlockChain_Roots_Art.glb', gltf => {
+  gltfLoader.load('./BlockChain_Roots_Art.glb', gltf => {
     rootsArtModelTemplate = gltf.scene;
     rootsArtModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('BlockChain_Roots_Art.glb failed to load', err));
-  gltfLoader.load('./models/ElectricPost01_Art.glb', gltf => {
+  gltfLoader.load('./ElectricPost01_Art.glb', gltf => {
     electricPostModelTemplate = gltf.scene;
     electricPostModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('ElectricPost01_Art.glb failed to load', err));
-  gltfLoader.load('./models/Fair_Flags_Line.glb', gltf => {
+  gltfLoader.load('./Fair_Flags_Line.glb', gltf => {
     fairFlagsModelTemplate = gltf.scene;
     fairFlagsModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('Fair_Flags_Line.glb failed to load', err));
-  gltfLoader.load('./models/wallwalker.glb', gltf => {
+  gltfLoader.load('./wallwalker.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     // Normalize to a consistent in-game height regardless of the source
@@ -2015,7 +2015,7 @@ function preloadExternalModels() {
     stripRootTranslation(wallwalkerGrabClip);
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('wallwalker.glb failed to load', err));
-  gltfLoader.load('./models/scp-096-unity-with-animationwalking.glb', gltf => {
+  gltfLoader.load('./scp-096-unity-with-animationwalking.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     // Normalize to a consistent in-game height regardless of the source
@@ -2050,7 +2050,7 @@ function preloadExternalModels() {
     stripRootTranslation(scp096GrabClip);
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('scp-096-unity-with-animationwalking.glb failed to load', err));
-  gltfLoader.load('./models/wendigo_unchanged.glb', gltf => {
+  gltfLoader.load('./wendigo_unchanged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     // The file includes a loose skull prop lying beside the monster; drop it
@@ -2094,7 +2094,7 @@ function preloadExternalModels() {
     stripRootTranslation(wendigoGrabClip);
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('wendigo_unchanged.glb failed to load', err));
-  gltfLoader.load('./models/psx_horror_creature_optimized.glb', gltf => {
+  gltfLoader.load('./psx_horror_creature_optimized.glb', gltf => {
     const inner = gltf.scene;
     // Skinned meshes are frustum-culled using their UNPOSED bounding sphere,
     // which for this rig doesn't match where the posed model is drawn -- that
@@ -2160,7 +2160,7 @@ function preloadExternalModels() {
     stripRootTranslation(psxHorrorGrabClip);
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('psx_horror_creature_optimized.glb failed to load', err));
-  gltfLoader.load('./models/rigged-model.glb', gltf => {
+  gltfLoader.load('./rigged-model.glb', gltf => {
     const inner = gltf.scene;
     // Skinned meshes are frustum-culled using their UNPOSED bounding sphere,
     // which for this rig doesn't match where the posed model is drawn -- that
@@ -2219,7 +2219,7 @@ function preloadExternalModels() {
     stripRootTranslation(snatcherGrabClip);
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('rigged-model.glb failed to load', err));
-  gltfLoader.load('./models/krasue_optimized.glb', gltf => {
+  gltfLoader.load('./krasue_optimized.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     const box = computeMeshBounds(inner);
@@ -2267,7 +2267,7 @@ function preloadExternalModels() {
     stripRootTranslation(krasueGrabClip);
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('krasue_optimized.glb failed to load', err));
-  gltfLoader.load('./models/total_horror_v2_optimized.glb', gltf => {
+  gltfLoader.load('./total_horror_v2_optimized.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     const box = computeMeshBounds(inner);
@@ -2308,7 +2308,7 @@ function preloadExternalModels() {
     stripRootTranslation(totalHorrorGrabClip);
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('total_horror_v2_optimized.glb failed to load', err));
-  gltfLoader.load('./models/Meshy_AI_A_low_poly_game_read_biped.glb', gltf => {
+  gltfLoader.load('./Meshy_AI_A_low_poly_game_read_biped.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     const box = computeMeshBounds(inner);
@@ -2345,7 +2345,7 @@ function preloadExternalModels() {
     Meshy_AI_A_low_poly_game_read_bipedClip = groundClip;
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('Meshy_AI_A_low_poly_game_read_biped.glb failed to load', err));
-  gltfLoader.load('./models/Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb', gltf => {
+  gltfLoader.load('./Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     const box = computeMeshBounds(inner);
@@ -2385,7 +2385,7 @@ function preloadExternalModels() {
     Meshy_AI_The_Bloodstained_Wrai_0921070753_riggedClip = groundClip;
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb failed to load', err));
-  gltfLoader.load('./models/Meshy_AI_Low_poly_3D_monster_a_0921073733_rigged.glb', gltf => {
+  gltfLoader.load('./Meshy_AI_Low_poly_3D_monster_a_0921073733_rigged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     const box = computeMeshBounds(inner);
