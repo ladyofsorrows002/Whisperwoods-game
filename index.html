@@ -10631,7 +10631,11 @@ function debugStatsText() {
     `spikes (last ~1-2s window): ${debugStats.spikeCount}`,
     `draw calls: ${info.render.calls}  tris: ${info.render.triangles}`,
     `geometries: ${info.memory.geometries}  textures: ${info.memory.textures}`,
-    `XR presenting: ${renderer.xr.isPresenting}`
+    `XR presenting: ${renderer.xr.isPresenting}`,
+    `-- multiplayer (live) --`,
+    `net.players: [${Object.keys(net.players || {}).join(', ') || '(none)'}]  myId: ${net.myId}`,
+    `remoteAvatars: [${Object.keys(remoteAvatars).join(', ') || '(none)'}]`,
+    `human models loaded: male=${!!maleModelTemplate} female=${!!femaleModelTemplate}`
   ];
   if (debugStats.events.length) {
     lines.push('-- recent events --');
