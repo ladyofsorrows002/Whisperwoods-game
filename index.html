@@ -10605,6 +10605,19 @@ function buildDebugPanelDom() {
     'padding:8px 10px;border:1px solid rgba(216,203,176,0.5);border-radius:4px;' +
     'white-space:pre;pointer-events:none;max-width:340px;';
   document.body.appendChild(panel);
+
+  // F9 only exists on a physical keyboard — phones/tablets have no way to
+  // reach this menu otherwise. A small, easy-to-miss-if-you're-not-
+  // looking-for-it tap target in the corner does the same job as F9 on
+  // any touchscreen. Deliberately tiny/low-opacity so it doesn't clutter
+  // normal gameplay or sit under the on-screen movement controls.
+  const dbgToggle = document.createElement('div');
+  dbgToggle.id = 'debugOverlayToggle';
+  dbgToggle.style.cssText = 'position:fixed;top:6px;right:6px;width:26px;height:26px;' +
+    'z-index:10000;border-radius:50%;background:rgba(216,203,176,0.18);' +
+    'border:1px solid rgba(216,203,176,0.35);pointer-events:auto;';
+  dbgToggle.addEventListener('click', toggleDebugOverlay);
+  document.body.appendChild(dbgToggle);
 }
 
 function debugStatsText() {
@@ -13128,7 +13141,13 @@ function ensureRemoteAvatar(id) {
   if (remoteAvatars[id]) return remoteAvatars[id];
   const template = femaleModelTemplate || maleModelTemplate;
   const clip = femaleModelTemplate ? femaleModelClip : maleModelClip;
-  if (!template) return null;
+  if (!template) {
+    if (!ensureRemoteAvatar._warnedMissingTemplate) {
+      ensureRemoteAvatar._warnedMissingTemplate = true;
+      logDebugEvent(`remoteAvatar: no human model loaded yet for player ${id} — will retry each frame until one loads`);
+    }
+    return null;
+  }
   const group = THREE.SkeletonUtils.clone(template);
   scene.add(group);
   let mixer = null, action = null;
@@ -13140,6 +13159,7 @@ function ensureRemoteAvatar(id) {
   }
   const av = { group, mixer, action, lastX: 0, lastZ: 0 };
   remoteAvatars[id] = av;
+  logDebugEvent(`remoteAvatar: created for player ${id}`);
   return av;
 }
 
@@ -13151,7 +13171,19 @@ function removeRemoteAvatar(id) {
 }
 
 function updateRemoteAvatars(delta) {
-  if ((!maleModelTemplate && !femaleModelTemplate) || net.myId === 'solo') return;
+  if (!maleModelTemplate && !femaleModelTemplate) {
+    if (!updateRemoteAvatars._warnedNoModels) {
+      updateRemoteAvatars._warnedNoModels = true;
+      logDebugEvent('remoteAvatar: skipping — no human model loaded at all yet (male/female both null)');
+    }
+    return;
+  }
+  if (net.myId === 'solo') return;
+  const playerIds = Object.keys(net.players || {});
+  if (!updateRemoteAvatars._loggedPlayerIds || updateRemoteAvatars._loggedPlayerIds !== playerIds.join(',')) {
+    updateRemoteAvatars._loggedPlayerIds = playerIds.join(',');
+    logDebugEvent(`remoteAvatar: net.players is now [${playerIds.join(', ')}], myId=${net.myId}`);
+  }
   const seen = {};
   for (const id in net.players) {
     if (id === net.myId) continue; // no visible model for the local first-person player
