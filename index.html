@@ -1855,9 +1855,9 @@ function preloadExternalModels() {
       notifyModelLoaded();
     });
   }
-  loadHumanModel('male', './models/low_poly_male.glb', (t, c) => { maleModelTemplate = t; maleModelClip = c; });
-  loadHumanModel('female', './models/low_poly_female.glb', (t, c) => { femaleModelTemplate = t; femaleModelClip = c; });
-  gltfLoader.load('./models/Meshy_AI_Low_poly_3D_character_0921081304_texture_RIGGED.glb', gltf => {
+  loadHumanModel('male', 'https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/low_poly_male.glb', (t, c) => { maleModelTemplate = t; maleModelClip = c; });
+  loadHumanModel('female', 'https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/low_poly_female.glb', (t, c) => { femaleModelTemplate = t; femaleModelClip = c; });
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Meshy_AI_Low_poly_3D_character_0921081304_texture_RIGGED.glb', gltf => {
     // The uploaded model shipped as a single static mesh with no skeleton --
     // a custom auto-rig was generated for it offline (18-bone humanoid-ish
     // skeleton hand-placed from the mesh's silhouette, since it's a robed
@@ -1900,17 +1900,17 @@ function preloadExternalModels() {
     ghostModelClip = groundClip;
     notifyModelLoaded();
   }, undefined, err => console.warn('Meshy_AI_Low_poly_3D_character_0921081304_texture_RIGGED.glb failed to load', err));
-  gltfLoader.load('./models/birch.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/birch.glb', gltf => {
     birchModelTemplate = gltf.scene;
     birchModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('birch.glb failed to load', err));
-  gltfLoader.load('./models/mossy-rock.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/mossy-rock.glb', gltf => {
     rockModelTemplate = gltf.scene;
     rockModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('mossy-rock.glb failed to load', err));
-  gltfLoader.load('./models/low_poly_flare_gun.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/low_poly_flare_gun.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     // Normalize to a small handheld-prop size regardless of the source
@@ -1933,7 +1933,7 @@ function preloadExternalModels() {
     flareGunModelTemplate = wrap;
     notifyModelLoaded();
   }, undefined, err => console.warn('low_poly_flare_gun.glb failed to load', err));
-  gltfLoader.load('./models/low_poly_lighter.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/low_poly_lighter.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     const box = computeMeshBounds(inner);
@@ -1953,42 +1953,42 @@ function preloadExternalModels() {
     lighterModelTemplate = wrap;
     notifyModelLoaded();
   }, undefined, err => console.warn('low_poly_lighter.glb failed to load', err));
-  gltfLoader.load('./models/arch.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/arch.glb', gltf => {
     archModelTemplate = gltf.scene;
     archModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('arch.glb failed to load', err));
-  gltfLoader.load('./models/Tree02.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Tree02.glb', gltf => {
     tree02ModelTemplate = gltf.scene;
     tree02ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('Tree02.glb failed to load', err));
-  gltfLoader.load('./models/Tree04.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Tree04.glb', gltf => {
     tree04ModelTemplate = gltf.scene;
     tree04ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('Tree04.glb failed to load', err));
-  gltfLoader.load('./models/Bush04.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Bush04.glb', gltf => {
     bush04ModelTemplate = gltf.scene;
     bush04ModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('Bush04.glb failed to load', err));
-  gltfLoader.load('./models/BlockChain_Roots_Art.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/BlockChain_Roots_Art.glb', gltf => {
     rootsArtModelTemplate = gltf.scene;
     rootsArtModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('BlockChain_Roots_Art.glb failed to load', err));
-  gltfLoader.load('./models/ElectricPost01_Art.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/ElectricPost01_Art.glb', gltf => {
     electricPostModelTemplate = gltf.scene;
     electricPostModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('ElectricPost01_Art.glb failed to load', err));
-  gltfLoader.load('./models/Fair_Flags_Line.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Fair_Flags_Line.glb', gltf => {
     fairFlagsModelTemplate = gltf.scene;
     fairFlagsModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
     notifyModelLoaded();
   }, undefined, err => console.warn('Fair_Flags_Line.glb failed to load', err));
-  gltfLoader.load('./models/wallwalker.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/wallwalker.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     // Normalize to a consistent in-game height regardless of the source
@@ -2024,7 +2024,7 @@ function preloadExternalModels() {
     stripRootTranslation(wallwalkerGrabClip);
     notifyModelLoaded();
   }, undefined, err => console.warn('wallwalker.glb failed to load', err));
-  gltfLoader.load('./models/scp-096-unity-with-animationwalking.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/scp-096-unity-with-animationwalking.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     // Normalize to a consistent in-game height regardless of the source
@@ -2059,7 +2059,7 @@ function preloadExternalModels() {
     stripRootTranslation(scp096GrabClip);
     notifyModelLoaded();
   }, undefined, err => console.warn('scp-096-unity-with-animationwalking.glb failed to load', err));
-  gltfLoader.load('./models/wendigo_unchanged.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/wendigo_unchanged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     // The file includes a loose skull prop lying beside the monster; drop it
@@ -2103,7 +2103,7 @@ function preloadExternalModels() {
     stripRootTranslation(wendigoGrabClip);
     notifyModelLoaded();
   }, undefined, err => console.warn('wendigo_unchanged.glb failed to load', err));
-  gltfLoader.load('./models/psx_horror_creature_optimized.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/psx_horror_creature_optimized.glb', gltf => {
     const inner = gltf.scene;
     // Skinned meshes are frustum-culled using their UNPOSED bounding sphere,
     // which for this rig doesn't match where the posed model is drawn -- that
@@ -2169,7 +2169,7 @@ function preloadExternalModels() {
     stripRootTranslation(psxHorrorGrabClip);
     notifyModelLoaded();
   }, undefined, err => console.warn('psx_horror_creature_optimized.glb failed to load', err));
-  gltfLoader.load('./models/rigged-model.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/rigged-model.glb', gltf => {
     const inner = gltf.scene;
     // Skinned meshes are frustum-culled using their UNPOSED bounding sphere,
     // which for this rig doesn't match where the posed model is drawn -- that
@@ -2228,7 +2228,7 @@ function preloadExternalModels() {
     stripRootTranslation(snatcherGrabClip);
     notifyModelLoaded();
   }, undefined, err => console.warn('rigged-model.glb failed to load', err));
-  gltfLoader.load('./models/krasue_optimized.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/krasue_optimized.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
     const box = computeMeshBounds(inner);
@@ -2276,7 +2276,7 @@ function preloadExternalModels() {
     stripRootTranslation(krasueGrabClip);
     notifyModelLoaded();
   }, undefined, err => console.warn('krasue_optimized.glb failed to load', err));
-  gltfLoader.load('./models/total_horror_v2_optimized.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/total_horror_v2_optimized.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     const box = computeMeshBounds(inner);
@@ -2317,7 +2317,7 @@ function preloadExternalModels() {
     stripRootTranslation(totalHorrorGrabClip);
     notifyModelLoaded();
   }, undefined, err => console.warn('total_horror_v2_optimized.glb failed to load', err));
-  gltfLoader.load('./models/Meshy_AI_A_low_poly_game_read_biped.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Meshy_AI_A_low_poly_game_read_biped.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     const box = computeMeshBounds(inner);
@@ -2354,7 +2354,7 @@ function preloadExternalModels() {
     Meshy_AI_A_low_poly_game_read_bipedClip = groundClip;
     notifyModelLoaded();
   }, undefined, err => console.warn('Meshy_AI_A_low_poly_game_read_biped.glb failed to load', err));
-  gltfLoader.load('./models/Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     const box = computeMeshBounds(inner);
@@ -2394,7 +2394,7 @@ function preloadExternalModels() {
     Meshy_AI_The_Bloodstained_Wrai_0921070753_riggedClip = groundClip;
     notifyModelLoaded();
   }, undefined, err => console.warn('Meshy_AI_The_Bloodstained_Wrai_0921070753_rigged.glb failed to load', err));
-  gltfLoader.load('./models/Meshy_AI_Low_poly_3D_monster_a_0921073733_rigged.glb', gltf => {
+  gltfLoader.load('https://github.com/ladyofsorrows002/Whisperwoods-game/releases/download/assets-v1/Meshy_AI_Low_poly_3D_monster_a_0921073733_rigged.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
     const box = computeMeshBounds(inner);
@@ -2646,7 +2646,7 @@ let bonesRevealed = false;   // true once the grace period ends and bones actual
 let bonesCollected = 0;
 let hideoutItems = [];       // {mesh,x,z,collected} — Hidebehind's hiding nooks
 let hideoutsDestroyed = 0;
-const HIDEOUT_TOTAL = 3;
+let HIDEOUT_TOTAL = 3; // recalculated each round in startGame(): 3 solo, scales with player count in multiplayer
 let BONE_TOTAL = 5; // recalculated each round in startGame(): 10 solo, 5 per player in multiplayer
 let decoyMesh = null, decoyActive = false, decoyTimer = 6, decoyPos = new THREE.Vector3();
 let decoyStuckTimer = 0; let decoyStuckCheckPos = new THREE.Vector3(); // watches for it wedged between obstacles and unstuck it
@@ -3929,6 +3929,8 @@ function handleHostMessage(fromId, msg) {
     const p = net.players[fromId];
     if (p) { p.x = msg.x; p.y = msg.y; p.z = msg.z; p.ry = msg.ry; }
   } else if (msg.type === 'action' && activeCryptid) {
+    if (msg.action === 'collectBone') { hostCollectBone(msg.index); return; }
+    if (msg.action === 'collectNook') { hostCollectNook(msg.index); return; }
     const push = msg.action === 'flare' ? 16 : msg.action === 'ward' ? 14 : msg.action === 'guessReward' ? 16 : 8;
     const stun = msg.action === 'flare' ? 5000 : msg.action === 'ward' ? 3000 : msg.action === 'guessReward' ? 6000 : 0;
     applyCryptidRepel(msg.x, msg.z, push, stun);
@@ -3954,6 +3956,13 @@ function handleClientMessage(msg) {
       }
     }
     if (msg.cryptidPos) cryptidNetTarget.set(msg.cryptidPos[0], msg.cryptidPos[1], msg.cryptidPos[2]);
+    // Bones/hiding nooks are host-authoritative (see hostCollectBone/
+    // hostCollectNook): the host is the only one who ever increments the
+    // real counters, and tells everyone else which indices are collected
+    // so every player's world (and HUD count) matches, regardless of who
+    // physically found which one.
+    if (Array.isArray(msg.boneCollected)) applyCollectedIndices(boneItems, msg.boneCollected, 'bone');
+    if (Array.isArray(msg.hideoutCollected)) applyCollectedIndices(hideoutItems, msg.hideoutCollected, 'hideout');
     survivalSeconds = msg.survivalSeconds;
     if (msg.sunriseActive && !sunriseActive && !roundOver) startSunrise(false);
     if (msg.roundOver && !roundOver) endRound(msg.won);
@@ -8409,6 +8418,11 @@ async function startGame() {
   // however many players are actually in the round (5 bones each).
   const playerCount = (net.myId === 'solo') ? 1 : Math.max(1, Object.keys(net.players).length);
   BONE_TOTAL = (net.myId === 'solo') ? 10 : playerCount * 5;
+  // Same idea for the Hidebehind's hiding nooks: more players means more
+  // ground covered, so a few extra nooks keeps it from being torn apart
+  // trivially fast. Capped at 6 so buildHideNooks() never needs more spots
+  // than clearingZones can realistically offer.
+  HIDEOUT_TOTAL = (net.myId === 'solo') ? 3 : Math.min(playerCount + 2, 6);
   if (activeCryptid.id !== 'backrooms') await waitForBirchModel(4000);
   buildWorld();
   try { populateCryptidMesh(activeCryptid.id); } catch (e) { console.error('populateCryptidMesh failed:', e); }
@@ -11235,6 +11249,59 @@ function addClueToLog(text) {
   showDiscoveryFlash('NEW CLUE — check your journal');
 }
 
+// Bones and hiding nooks are collected client-side by proximity (see
+// updateItems below), but the RESULT is host-authoritative: whichever
+// player is nearest applies for the pickup, the host is the only one who
+// actually marks it collected/increments the shared counter/checks for
+// round-end, and the outcome rides back out on the next 'state' broadcast
+// so every player's world (and HUD count) ends up agreeing — same pattern
+// as applyCryptidRepel for flare/ward/whistle.
+function hostCollectBone(index) {
+  const b = boneItems[index];
+  if (!b || b.collected) return;
+  b.collected = true; b.mesh.visible = false; bonesCollected++;
+  if (bonesCollected >= BONE_TOTAL && !roundOver) {
+    endRound(true, 'THE WOODS GO STILL', 'every bone found — it\'s been calmed before dawn.');
+  }
+}
+
+function hostCollectNook(index) {
+  const h = hideoutItems[index];
+  if (!h || h.collected) return;
+  h.collected = true;
+  h.mesh.rotation.x = Math.PI / 2.1;
+  h.mesh.position.y = -0.35;
+  if (h.light) h.light.intensity = 0;
+  hideoutsDestroyed++;
+  if (hideoutsDestroyed >= HIDEOUT_TOTAL && !roundOver) {
+    endRound(true, 'IT HAS NOWHERE LEFT', 'every hiding spot stripped away — the Hidebehind slinks off for good.');
+  } else if (!roundOver) {
+    showDiscoveryFlash('hiding nook torn out (' + hideoutsDestroyed + '/' + HIDEOUT_TOTAL + ')');
+  }
+}
+
+// Applies the host's authoritative collected[] flags on a client: any
+// index that's collected there but not yet here gets the same visual
+// treatment hostCollectBone/hostCollectNook gives it, without redoing the
+// counting (the host already counted it — this just catches this client's
+// world up to match, including for nooks/bones a teammate found first).
+function applyCollectedIndices(items, collectedFlags, kind) {
+  for (let i = 0; i < collectedFlags.length; i++) {
+    if (!collectedFlags[i]) continue;
+    const it = items[i];
+    if (!it || it.collected) continue;
+    it.collected = true;
+    if (kind === 'bone') {
+      it.mesh.visible = false; bonesCollected++;
+    } else {
+      it.mesh.rotation.x = Math.PI / 2.1;
+      it.mesh.position.y = -0.35;
+      if (it.light) it.light.intensity = 0;
+      hideoutsDestroyed++;
+    }
+  }
+}
+
 function updateItems() {
   if (lighterItem && !lighterItem.collected) {
     if (lighterItem.mesh.material) lighterItem.mesh.material.opacity = 1; // no-op for the GLB model (a Group, not a single-material Mesh) — harmless, just skipped
@@ -11257,13 +11324,21 @@ function updateItems() {
     bonesRevealed = true;
     for (const b of boneItems) if (!b.collected) b.mesh.visible = true;
   }
-  if (bonesRevealed) for (const b of boneItems) {
+  if (bonesRevealed) for (let bi = 0; bi < boneItems.length; bi++) {
+    const b = boneItems[bi];
     if (b.collected) continue;
     const d = Math.hypot(playerObject.position.x - b.x, playerObject.position.z - b.z);
     if (d < 1.6) {
-      b.collected = true; b.mesh.visible = false; bonesCollected++;
-      if (bonesCollected >= BONE_TOTAL && !roundOver) {
-        endRound(true, 'THE WOODS GO STILL', 'every bone found — it\'s been calmed before dawn.');
+      // Solo/host: apply immediately (host IS the authority). Client:
+      // just tell the host — b.collected flips (and the mesh hides) once
+      // the host's next 'state' broadcast confirms it, same latency as
+      // any other networked action. b.requestSent avoids re-sending every
+      // frame while standing on top of an already-requested bone.
+      if (net.isHost || net.myId === 'solo') {
+        hostCollectBone(bi);
+      } else if (!b.requestSent) {
+        b.requestSent = true;
+        sendToHost({ type: 'action', action: 'collectBone', index: bi });
       }
     } else if (b.light) {
       // gentle pulse plus an occasional restless flicker, driven through
@@ -11276,19 +11351,16 @@ function updateItems() {
       b.light.scale.set(s, s, 1);
     }
   }
-  for (const h of hideoutItems) {
+  for (let hi = 0; hi < hideoutItems.length; hi++) {
+    const h = hideoutItems[hi];
     if (h.collected) continue;
     const d = Math.hypot(playerObject.position.x - h.x, playerObject.position.z - h.z);
     if (d < 1.8) {
-      h.collected = true;
-      h.mesh.rotation.x = Math.PI / 2.1;
-      h.mesh.position.y = -0.35;
-      if (h.light) h.light.intensity = 0;
-      hideoutsDestroyed++;
-      if (hideoutsDestroyed >= HIDEOUT_TOTAL && !roundOver) {
-        endRound(true, 'IT HAS NOWHERE LEFT', 'every hiding spot stripped away — the Hidebehind slinks off for good.');
-      } else if (!roundOver) {
-        showDiscoveryFlash('hiding nook torn out (' + hideoutsDestroyed + '/' + HIDEOUT_TOTAL + ')');
+      if (net.isHost || net.myId === 'solo') {
+        hostCollectNook(hi);
+      } else if (!h.requestSent) {
+        h.requestSent = true;
+        sendToHost({ type: 'action', action: 'collectNook', index: hi });
       }
     } else if (h.light) {
       const pulse = 0.7 + Math.sin(boneNow * 1.3 + h.flicker) * 0.3;
@@ -13131,7 +13203,9 @@ function sendNetworkUpdate() {
       players: net.players,
       cryptidId: activeCryptid ? activeCryptid.id : null,
       cryptidPos: [cryptidPos.x, cryptidPos.y, cryptidPos.z],
-      survivalSeconds, roundOver, sunriseActive, won: survivalSeconds >= survivalGoal
+      survivalSeconds, roundOver, sunriseActive, won: survivalSeconds >= survivalGoal,
+      boneCollected: boneItems.map(b => b.collected),
+      hideoutCollected: hideoutItems.map(h => h.collected)
     });
   } else {
     sendToHost({ type: 'input', x: playerObject.position.x, y: playerObject.position.y,
