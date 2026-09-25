@@ -1514,7 +1514,6 @@ let tree04ModelTemplate = null;  // THREE.Group, set once tree04.glb loads
 let bush04ModelTemplate = null;  // THREE.Group, set once bush04.glb loads
 let rootsArtModelTemplate = null;// THREE.Group, set once blockchain-roots-art.glb loads
 let electricPostModelTemplate = null; // THREE.Group, set once ElectricPost01_Art.glb loads
-let fairFlagsModelTemplate = null;    // THREE.Group, set once Fair_Flags_Line.glb loads
 let maleModelTemplate = null;    // THREE.Group, set once low_poly_male.glb loads (male player avatar)
 let femaleModelTemplate = null;  // THREE.Group, set once low_poly_female.glb loads (female player avatar)
 let maleModelClip = null;        // THREE.AnimationClip, the baked 'walking' clip from low_poly_male.glb
@@ -1754,10 +1753,9 @@ function preloadExternalModels() {
   // every decorative prop/environment asset below. Browsers cap concurrent
   // requests per host (6 over HTTP/1.1), so if this load call sat further
   // down the list it would queue behind things like the flare gun, lighter,
-  // arch, trees, bushes, roots art, electric post, and fair flags — all of
-  // which the player never needs before the menu/preview shows up. Starting
-  // it first means the human models are the first bytes to arrive, not the
-  // last.
+  // arch, trees, bushes, roots art, and electric post — all of which the
+  // player never needs before the menu/preview shows up. Starting it first
+  // means the human models are the first bytes to arrive, not the last.
   // low_poly_male.glb / low_poly_female.glb each ship as a single self-
   // contained scene (already textured — skin/hair/clothing/eyes/lips/
   // makeup materials baked in) plus one baked 'walking' animation clip, on
@@ -1974,11 +1972,6 @@ function preloadExternalModels() {
     electricPostModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     notifyModelLoaded();
   }, undefined, err => reportNetDebug('ElectricPost01_Art.glb failed to load', err));
-  gltfLoader.load('./Fair_Flags_Line.glb', gltf => {
-    fairFlagsModelTemplate = gltf.scene;
-    fairFlagsModelTemplate.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
-    notifyModelLoaded();
-  }, undefined, err => reportNetDebug('Fair_Flags_Line.glb failed to load', err));
   gltfLoader.load('./wallwalker.glb', gltf => {
     const inner = gltf.scene;
     inner.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
@@ -3591,11 +3584,18 @@ document.getElementById('customStartBtn').addEventListener('click', () => {
 //    to "genuinely unreachable" even though it would have connected
 //    given a few more seconds.
 const HOST_CONNECT_TIMEOUT_MS = 12000;
-const CONNECT_TIMEOUT_MS = 25000;
+const CONNECT_TIMEOUT_MS = 70000;
 // If the client is still waiting past this point, it's likely on a relay
 // (TURN) path rather than stalled — say so, so a slow-but-working relay
 // connection doesn't look indistinguishable from a dead one.
 const CONNECT_SLOW_HINT_MS = 9000;
+// The relay server (Render free tier) goes to sleep after inactivity and
+// can take 50+ seconds to wake back up on the next connection attempt —
+// that's Render's own number, not a worst case. openRelaySocket() uses
+// this (not the shorter constants above) as how long it'll wait for the
+// WebSocket itself to open, so a sleeping server gets a real chance to
+// wake up instead of being treated as unreachable a few seconds in.
+const RELAY_SOCKET_TIMEOUT_MS = 60000;
 
 document.getElementById('hostBtn').addEventListener('click', () => {
   if (net.connecting) return;
@@ -3686,7 +3686,7 @@ function openRelaySocket() {
       settled = true;
       try { ws.close(); } catch (e) {}
       reject(new Error('timed out reaching the multiplayer server'));
-    }, HOST_CONNECT_TIMEOUT_MS);
+    }, RELAY_SOCKET_TIMEOUT_MS);
     ws.onopen = () => {
       if (settled) return;
       settled = true;
@@ -7251,15 +7251,6 @@ function buildWeirdcoreScenery(rng) {
         scene.add(new THREE.Line(wireGeo, wireMat));
       }
     }
-  }
-
-  // A festive strand of fair flags/bunting strung over the yard — fits
-  // right in with the balloons and rainbow arches already out here.
-  if (fairFlagsModelTemplate) {
-    const flags = fairFlagsModelTemplate.clone(true);
-    flags.position.set(0, terrainHeightAt(0, 0) + 4.4, 0);
-    flags.scale.setScalar(1.4);
-    scene.add(flags);
   }
 
   // A handful of drifting, bobbing hot-air balloons — the exact same model
